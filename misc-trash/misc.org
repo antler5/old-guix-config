@@ -1,0 +1,65 @@
+* Byte-structure Macros
+#+BEGIN_SRC scheme
+(add-to-load-path "/gnu/store/rpz65ciw677b8h6rhsh63k6922m0j0r4-guile-parted-0.0.7/share/guile/site/3.0/")
+(use-modules (bytestructures guile)
+             (parted)
+             (srfi srfi-1)
+             (system foreign))
+
+(define-syntax-rule (syntax-case-lambda <pattern> <body>)
+  (lambda (stx)
+    (syntax-case stx ()
+      (<pattern> <body>))))
+
+(define-syntax syntax-append
+  (lambda (x)
+    (syntax-case x ()
+      ((_ a b)
+       #'(datum->syntax (find (compose not symbol?) (list a b))
+           (apply symbol-append (map syntax->datum (list a b))))))))
+
+(define (bytestructure-descriptor-fields bytestructure-descriptor)
+  (map car (struct-metadata-field-alist
+             (bytestructure-descriptor-metadata
+               bytestructure-descriptor))))
+
+(define-syntax define-struct-utils
+  (syntax-case-lambda (_ struct-ref)
+    (with-syntax ((@@-descriptor #`(@@ (parted structs) #,(syntax-append '% #'struct-ref)))
+                  (@@-constructor #`(@@ (parted structs) #,(syntax-append '%make- #'struct-ref))))
+       #`(define-bytestructure-accessors
+           @@-descriptor
+           #,(syntax-append #'struct-ref '-unwrap)
+           #,(syntax-append #'struct-ref '-ref)
+           #,(syntax-append #'struct-ref '-set))
+       #`(define #,(syntax-append 'make- #'struct-ref)
+           (case-lambda
+             (()       (@@-constructor (bytestructure @@-descriptor)))
+             ((values) (@@-constructor (bytestructure @@-descriptor values))))))))
+
+(define-struct-utils partition)
+;; (module-for-each (lambda (sym val) (display sym) (newline)) (resolve-module '(guile-user)))
+
+;; (define test (make-partition))
+(define test
+  (make-partition
+   `((prev ,%null-pointer)
+     (next ,%null-pointer)
+     (disk ,%null-pointer)
+     (geom ,(bytestructure-bytevector
+              (geometry-bytestructure
+                (make-geometry
+                  `((dev ,%null-pointer)
+                    (start 0)
+                    (length 0)
+                    (end 0))))))
+     (num 0)
+     (type 0)
+     (fs-type 0)
+     (part-list ,%null-pointer)
+     (disk-specific ,%null-pointer))))
+
+(partition-ref (bytestructure-bytevector (partition-bytestructure test)) prev)
+(partition-set (bytestructure-bytevector (partition-bytestructure test)) prev 1)
+(bytestructure-bytevector (partition-bytestructure test))
+#+END_SRC

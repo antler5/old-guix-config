@@ -1,0 +1,18 @@
+{
+  "creation_rules": [
+    {
+      "path_regex": "modules/antlers/secret/[^/]+\\.json$",
+      "key_groups": [
+        {
+          "pgp": [
+            "5B750FA3D61DABAC17FA14363D2038AB7EC7951B"
+          ],
+          "ssh_rsa": [
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCaPiBmuflnAlCWP2TAb3gFf8z3k/EV9+AmnYQBlnBgBKNbyfvH0iD4uZmDFKHUfAPENQ70OxU9R0ZEXlNpdIp6jLjrCdbLFohFeHAoBen2RdU60TmVfknbu70hRl6YWjr/Dw7BDMiWPnefizDFM5Ue9kJu/ZAbTdRSeIPZFCciwqMJlNYmtZzYWaz1BlDzMvCWQFJgGduFlPuRKnw97CH8m7ApoFgZ7SYxQRHhGItBTO4vSFlcdVC20SuXAk+qOv+EDHH119io0ezb2qXuyu/E+uFhiNkJuSCkGaEaL0vnJmQpyeXXYLeuJKnH03KBpot6luOwdBH/2Ea6Y8A0WnfXPxTiTXa5psuea4S2ym1yBOruUU6YXNnm4b/8XNbMzJ24AAoKVseUTdxowqP/y0xY0q7Oysw8tyd24w+TeAuSYu3aCzHnVHsiQO6Y8urSPtyufgxLKhQakfXPjJ2ovtyiKsDSI5qxF2/TM32Ngn7clJA04WiTBO7yApvGNU+PPG0="
+          ]
+        }
+      ]
+    }
+  ]
+}
+

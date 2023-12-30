@@ -1,0 +1,20 @@
+#+TITLE: Detritus of my Learnings
+
+This is *not* an example configuration! If you are interested in
+Nix/Guix and stumbled across this repo looking for snippets to snipe,
+TURN BACK NOW! This was my personal configuration as of a few months
+back, and it contains no semblance of organization or documentation.
+I'm presently knee-deep in the next face-lift, and wanted to put this
+out so I have somewhere to point people when talking about specifics
+I've been trying to achieve.
+
+If you do know Guix well, then the most interesting file for you is
+probably going to be my syntax-sugar for [[https://github.com/AutumnalAntlers/old-guix-config/blob/main/modules/antlers/records.scm][records]] and the way that it's
+[[https://github.com/AutumnalAntlers/old-guix-config/blob/main/modules/antlers/systems/transformations/yubi.scm][used]]. It's a leaky abstraction (bc of =delay='s and =thunk='s), but
+it's definitely something. idk, i like it. Otherwise, it's a mess.
+Several pairs of files are duplicates bc I never refactored out common
+bits, some outright redundant, and most everything is either broken,
+unfinished, or omitted.
+
+But as said, there are a few things worth pointing out; and the net's
+just full of crafty folks who've a way of finding what they need c:
